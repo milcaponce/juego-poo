@@ -57,6 +57,9 @@ class Personaje {
         this.y = 300;
         this.width = 50;
         this.height = 50;
+        this.estado = "idle"; //quieto
+        this.direccion = "derecha";
+        this.frameActual = 0;
         this.velocidad = 10;
         this.saltando = false;
         this.element = document.createElement("div");
@@ -67,12 +70,27 @@ class Personaje {
     mover(evento) {
         if (evento.key === "ArrowRight") {
             this.x += this.velocidad;
+            this.direccion = "derecha";
+            this.estado = "caminando";
         } else if (evento.key === "ArrowLeft") {
             this.x -= this.velocidad;
+            this.direccion = "izquierda";
+            this.estado = "caminando";
+        } else if (evento.key === "Shift") {
+            this.estado = "corriendo"; // activa correr con Shift
         } else if (evento.key === "ArrowUp") {
             this.saltar();
+            return; //Para que no vuelva a "idle"
         }
+
+        this.actualizarAnimacion();
         this.actualizarPosicion();
+        
+        //Volver a "idle" si no se mantiene la tecla presionada
+        setTimeout(() => {
+        this.estado = "idle";
+        this.actualizarAnimacion();
+        }, 300);
     }
 
     actualizarPosicion() {
@@ -80,9 +98,28 @@ class Personaje {
         this.element.style.top = `${this.y}px`;
     }
 
+    actualizarAnimacion() {
+        if (this.estado === "idle") {
+            this.element.style.backgroundImage = 'url("img/LVL-1-Egipto/Personaje/Idle.png")';
+        } else if (this.estado === "caminando") {
+            this.element.style.backgroundImage = 'url("img/LVL-1-Egipto/Personaje/Walk.png")'
+        } else if (this.estado === "corriendo") {
+            this.element.style.backgroundImage = 'url("img/LVL-1-Egipto/Personaje/Run.png")'
+        } else if (this.estado === "saltando") {
+            this.element.style.backgroundImage = 'url("img/LVL-1-Egipto/Personaje/Jump.png")'
+        }
+        // Espejar hacia izquierda
+        if (this.direccion === "izquierda") {
+            this.element.style.transform = 'scaleX(-1)';
+        } else {
+            this.element.style.transform = 'scaleX(1)';
+        }
+    }
     
     saltar() {
         this.saltando = true;
+        this.estado = "saltando";
+        this.actualizarAnimacion(); //Para volver a "idle" al aterrizar
         let alturaMaxima = this.y - 100;
         const salto = setInterval(() => {
             if (this.y > alturaMaxima) {

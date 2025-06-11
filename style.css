@@ -2,7 +2,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     overflow: hidden;
-    background-color: #b8b8b8;
+    background-color: #c9b196;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,22 +12,23 @@ body {
 
 #game-container {
     position: relative;
-    width: 800px;
-    height: 400px;
+    width: 1000px;
+    height: 500px;
     margin: 20px auto;
-    border: 10px solid #6d6d6d;
-    background: #fff;
+    border: 10px solid #d9c0a3;
+    background: url("img/LVL-1-Egipto/fondo-desierto-dia.png") no-repeat center center;
+    background-size: cover;
     overflow: hidden;
     border-radius: 30px;
 }
 
 .personaje {
     position: absolute;
-    width: 50px;
-    height: 50px;
-    background-color: #07a07c;
-    border-radius: 50%;
-    border: 5px solid #07a050;
+    width: 60px;
+    height: 60px;
+    background-color: url("img/LVL-1-Egipto/Personaje/Idle.png") no-repeat center;
+    background-size: contain;
+    transition: transform 0.1s linear;
 }
 
 .moneda {

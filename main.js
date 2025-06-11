@@ -55,29 +55,37 @@ class Personaje {
     constructor() {
         this.x = 50;
         this.y = 300;
-        this.width = 50;
-        this.height = 50;
+        this.width = 128;
+        this.height = 128;
+        this.velocidad = 10;
+        this.saltando = false;
         this.estado = "idle"; //quieto
         this.direccion = "derecha";
         this.frameActual = 0;
-        this.velocidad = 10;
-        this.saltando = false;
+        
+        
         this.element = document.createElement("div");
         this.element.classList.add("personaje");
         this.actualizarPosicion();
+        this.actualizarAnimacion();
     }
 
     mover(evento) {
+        if (this.saltando) return; 
+
         if (evento.key === "ArrowRight") {
             this.x += this.velocidad;
             this.direccion = "derecha";
             this.estado = "caminando";
+
         } else if (evento.key === "ArrowLeft") {
             this.x -= this.velocidad;
             this.direccion = "izquierda";
             this.estado = "caminando";
+
         } else if (evento.key === "Shift") {
             this.estado = "corriendo"; // activa correr con Shift
+        
         } else if (evento.key === "ArrowUp") {
             this.saltar();
             return; //Para que no vuelva a "idle"
@@ -86,48 +94,32 @@ class Personaje {
         this.actualizarAnimacion();
         this.actualizarPosicion();
         
-        //Volver a "idle" si no se mantiene la tecla presionada
-        setTimeout(() => {
+        //Volver a "idle" si no está saltando
+        clearTimeout(this.restEstado);
+        this.restEstado = setTimeout(() => {
         this.estado = "idle";
         this.actualizarAnimacion();
         }, 300);
     }
 
-    actualizarPosicion() {
-        this.element.style.left = `${this.x}px`;
-        this.element.style.top = `${this.y}px`;
-    }
-
-    actualizarAnimacion() {
-        if (this.estado === "idle") {
-            this.element.style.backgroundImage = 'url("img/LVL-1-Egipto/Personaje/Idle.png")';
-        } else if (this.estado === "caminando") {
-            this.element.style.backgroundImage = 'url("img/LVL-1-Egipto/Personaje/Walk.png")'
-        } else if (this.estado === "corriendo") {
-            this.element.style.backgroundImage = 'url("img/LVL-1-Egipto/Personaje/Run.png")'
-        } else if (this.estado === "saltando") {
-            this.element.style.backgroundImage = 'url("img/LVL-1-Egipto/Personaje/Jump.png")'
-        }
-        // Espejar hacia izquierda
-        if (this.direccion === "izquierda") {
-            this.element.style.transform = 'scaleX(-1)';
-        } else {
-            this.element.style.transform = 'scaleX(1)';
-        }
-    }
     
     saltar() {
+        if (this.saltando) return; //Evita salto doble
+
         this.saltando = true;
         this.estado = "saltando";
         this.actualizarAnimacion(); //Para volver a "idle" al aterrizar
-        let alturaMaxima = this.y - 100;
+
+        let alturaMaxima = this.y - 300;
+
         const salto = setInterval(() => {
             if (this.y > alturaMaxima) {
-                this.y -=10;
-            }else {
+                this.y -= 25;
+            } else {
                 clearInterval(salto);
                 this.caer();
             }
+
             this.actualizarPosicion();
         }, 20);
     }
@@ -135,14 +127,58 @@ class Personaje {
     caer() {
         const gravedad = setInterval(() => {
             if (this.y < 300) {
-                this.y += 10;
+                this.y += 20;
+                this.actualizarPosicion();
             } else {
                 clearInterval(gravedad);
+                this.saltando = false;
+                this.estado = "idle";
+                this.actualizarAnimacion();
             }
-            this.actualizarPosicion();
         }, 20);
-        }
+    }
 
+
+    actualizarAnimacion() {
+    const ruta = "img/LVL-1-Egipto/Personaje/";
+
+    if (this.estado === "idle") {
+        this.element.style.width = "128px";
+        this.element.style.height = "128px";
+        this.element.style.backgroundImage = `url("${ruta}Idle.png")`;
+        this.element.style.backgroundSize = "640px auto";
+        this.element.style.animation = "animarIdle 0.8s steps(5) infinite";
+
+    } else if (this.estado === "caminando") {
+        this.element.style.width = "116px";
+        this.element.style.height = "364px";
+        this.element.style.backgroundImage = `url("${ruta}Walk.png")`;
+        this.element.style.backgroundSize = "927px auto";
+        this.element.style.animation = "animarWalk 0.8s steps(8) infinite";
+
+    } else if (this.estado === "corriendo") {
+        this.element.style.width = "116px";
+        this.element.style.height = "115px";
+        this.element.style.backgroundImage = `url("${ruta}Run.png")`;
+        this.element.style.backgroundSize = "927px auto";
+        this.element.style.animation = "animarRun 0.6s steps(8) infinite";
+
+    } else if (this.estado === "saltando") {
+        this.element.style.width = "124px";
+        this.element.style.height = "128px";
+        this.element.style.backgroundImage = `url("${ruta}Jump.png")`;
+        this.element.style.backgroundSize = "869px auto";
+        this.element.style.animation = "animarJump 0.6s steps(7) 1";
+    }
+
+    this.element.style.transform = this.direccion === "izquierda" ? "scaleX(-1)" : "scaleX(1)";
+}
+
+
+    actualizarPosicion() {
+        this.element.style.left = `${this.x}px`;
+        this.element.style.top = `${this.y}px`;
+    }
     
 
 colisionaCon(objeto) {

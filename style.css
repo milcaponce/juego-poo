@@ -24,11 +24,36 @@ body {
 
 .personaje {
     position: absolute;
-    width: 60px;
-    height: 60px;
-    background-color: url("img/LVL-1-Egipto/Personaje/Idle.png") no-repeat center;
-    background-size: contain;
-    transition: transform 0.1s linear;
+    width: 128px;
+    height: 128px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    background-position: 0 0;
+    background-size: cover;
+}
+/* Animación Idle */
+@keyframes animarIdle {
+    from { background-position: 0; }
+    to   { background-position: -640px; }
+}
+
+/* Animación jump */
+@keyframes animarJump {
+    from { background-position: 0; }
+    to   { background-position: -869px; }
+}
+
+/*Animación run */
+@keyframes animarRun {
+    from { background-position: 0; }
+    to   { background-position: -927px; }
+}
+
+/* Animación walk */
+@keyframes animarWalk {
+    from { background-position: 0; }
+    to   { background-position: -927px; }
 }
 
 .moneda {

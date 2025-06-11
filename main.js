@@ -150,21 +150,21 @@ class Personaje {
         this.element.style.animation = "animarIdle 0.8s steps(5) infinite";
 
     } else if (this.estado === "caminando") {
-        this.element.style.width = "116px";
-        this.element.style.height = "364px";
+        this.element.style.width = "128px";
+        this.element.style.height = "128px";
         this.element.style.backgroundImage = `url("${ruta}Walk.png")`;
         this.element.style.backgroundSize = "927px auto";
         this.element.style.animation = "animarWalk 0.8s steps(8) infinite";
 
     } else if (this.estado === "corriendo") {
-        this.element.style.width = "116px";
-        this.element.style.height = "115px";
+        this.element.style.width = "128px";
+        this.element.style.height = "128px";
         this.element.style.backgroundImage = `url("${ruta}Run.png")`;
         this.element.style.backgroundSize = "927px auto";
         this.element.style.animation = "animarRun 0.6s steps(8) infinite";
 
     } else if (this.estado === "saltando") {
-        this.element.style.width = "124px";
+        this.element.style.width = "128px";
         this.element.style.height = "128px";
         this.element.style.backgroundImage = `url("${ruta}Jump.png")`;
         this.element.style.backgroundSize = "869px auto";

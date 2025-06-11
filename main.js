@@ -73,20 +73,24 @@ class Personaje {
     mover(evento) {
         if (this.saltando) return; 
 
+        const contenedorAncho = 1000;
+        const margen = 0;
+
         if (evento.key === "ArrowRight") {
-            this.x += this.velocidad;
+            if (this.x + this.width + this.velocidad <= contenedorAncho - margen) {
+                this.x += this.velocidad;
+            }
             this.direccion = "derecha";
-            this.estado = "caminando";
+            this.estado = evento.shiftKey ? "corriendo" : "caminando";
 
         } else if (evento.key === "ArrowLeft") {
-            this.x -= this.velocidad;
+            if (this.x - this.velocidad >= 0 + margen) {
+                this.x -= this.velocidad;
+            }
             this.direccion = "izquierda";
-            this.estado = "caminando";
+            this.estado = evento.shiftKey ? "corriendo" : "caminando";
 
-        } else if (evento.key === "Shift") {
-            this.estado = "corriendo"; // activa correr con Shift
-        
-        } else if (evento.key === "ArrowUp") {
+        }  else if (evento.key === "ArrowUp") {
             this.saltar();
             return; //Para que no vuelva a "idle"
         }

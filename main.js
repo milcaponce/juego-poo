@@ -49,12 +49,11 @@ actualizarPuntiacion(puntos) {
     this.puntuacion += puntos;
     this.puntosElement.textContent = this.puntuacion;
     
-    if (this.puntuacion >= 100 && !this.nivelCompletado) {
-        alert("¡Nivel superado!");
-        this.nivelCompletado = true;
-        this.generarMonedasExtra();
-    }
+    if (this.puntuacion >= 100 {
+    clearInterval(this.intervaloColisiones); // detener colisiones
+    document.getElementById("nivel-superado").classList.add("mostrar");       
 }
+
 generarMonedasExtra() {
     for (let i = 0; i <3; i++) {
         const nueva = new Moneda();

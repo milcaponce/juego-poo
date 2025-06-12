@@ -68,6 +68,22 @@ body {
     margin: 0 4px;
 }
 
+#nivel-superado {
+    position: absolute;
+    background: rgb(0,0,0,0.85);
+    color: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 600px;
+    z-index: 999;
+    display: none;
+}
+
+#nivel-superado.mostrar {
+    display: block;
+}
+
 #game-container {
     position: relative;
     width: 1000px;

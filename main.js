@@ -7,6 +7,7 @@ constructor(){
     this.crearEscenario();
     this.agregarEventos();
     this.puntosElement = document.getElementById("puntaje");
+    this.nivelCompletado = false;
 }
 crearEscenario() {
     this.personaje = new Personaje();
@@ -48,8 +49,9 @@ actualizarPuntiacion(puntos) {
     this.puntuacion += puntos;
     this.puntosElement.textContent = this.puntuacion;
     
-    if (this.puntuacion %50 === 0) {
+    if (this.puntuacion >= 100 && !this.nivelCompletado) {
         alert("¡Nivel superado!");
+        this.nivelCompletado = true;
         this.generarMonedasExtra();
     }
 }
@@ -287,7 +289,13 @@ const juego = new Game();
 
 //Cronometro
 let segundos = 0;
-setInterval(() => {
+let intervaloTiempo;
+
+function iniciarJuego() {
+    document.getElementById("intro").style.display = "none";
+    segundos = 0;
+    intervaloTiempo = setInterval(() => {
     segundos++;
     document.getElementById("tiempo").textContent = segundos;
-}, 1000);
+    }, 1000);
+}

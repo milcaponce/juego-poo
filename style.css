@@ -49,11 +49,23 @@ body {
     padding: 10px 20px;
     background-color: rgb(255,255,255,0.1);
     border-radius: 12px;
+    display: none;
+}
+
+.intro-section.activa {
+    display: block;
 }
 
 .intro-section h2,
 .intro-section h3 {
     color: #ffe680;
+}
+
+#instrucciones img {
+    filter: drop-shadow(1px 1px 2px rgb(151, 159, 6));
+    width: 32px;
+    height: auto;
+    margin: 0 4px;
 }
 
 #game-container {

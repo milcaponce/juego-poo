@@ -12,20 +12,6 @@ crearEscenario() {
     this.personaje = new Personaje();
     this.container.appendChild(this.personaje.element);
     
-    for (let i = 0; i < 5; i++) {
-        const moneda = new Moneda("papyrus"); 
-    this.monedas.push(moneda);
-    this.container.appendChild(moneda.element);
-    }
-
-    //Escarabajo aparece luego 7 sg
-    setTimeout(() => {
-    const scarab = new Moneda("scarab"); // Podés crear MonedaScarab
-    this.monedas.push(scarab);
-    this.container.appendChild(scarab.element);
-    }, 7000);
-
-
     const objetos = ["papyrus", "ankh", "scarab", "papyrus", "papyrus", "ankh", "scarab"];
         objetos.forEach(tipo => {
     
@@ -33,7 +19,16 @@ crearEscenario() {
         this.monedas.push(objeto);
         this.container.appendChild(objeto.element);
     });
+
+    
+    //Escarabajo aparece luego 7 sg
+    setTimeout(() => {
+    const scarab = new Moneda("scarab"); 
+    this.monedas.push(scarab);
+    this.container.appendChild(scarab.element);
+    }, 7000);
 }
+
 agregarEventos() {
     window.addEventListener("keydown", (e) => this.personaje.mover(e));
     this.checkColisiones();
@@ -251,12 +246,46 @@ class Moneda {
     
     }
 
-function iniciarJuego() {
+let pasoIntro = 0;
+
+function mostrarPasoIntro() {
+    const historia = document.getElementById("historia");
+    const instrucciones = document.getElementById("instrucciones");
+
+    if (pasoIntro === 0) {
+    historia.classList.add("activa");
+    instrucciones.classList.remove("activa");
+    } else if (pasoIntro === 1) {
+    historia.classList.remove("activa");
+    instrucciones.classList.add("activa");
+    }
+}
+
+function avanzarIntro() {
+    pasoIntro++;
+
+    if (pasoIntro === 1) {
+    mostrarPasoIntro();
+    } else if (pasoIntro === 2) {
     document.getElementById("intro").style.display = "none";
+    }
+}
+
+// Se muestra Historia
+mostrarPasoIntro();
+
+
+document.addEventListener("keydown", avanzarIntro);
+document.addEventListener("click", avanzarIntro);
+
+
+function iniciarJuego() {
+    avanzarIntro();
 }
 
 const juego = new Game(); 
 
+//Cronometro
 let segundos = 0;
 setInterval(() => {
     segundos++;

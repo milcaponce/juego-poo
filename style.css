@@ -10,6 +10,17 @@ body {
     flex-direction: column;
 }
 
+#intro {
+    position: absolute;
+    background: rgb(0,0,0,0.75);
+    color: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    max-width: 600px;
+    z-index: 999;
+    text-align: center;
+}
+
 #game-container {
     position: relative;
     width: 1000px;

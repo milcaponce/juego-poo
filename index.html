@@ -8,7 +8,26 @@
 </head>
 
 <body>
-    <h1>Juego OOP</h1>
+    <h1>Viajando por el mundo</h1>
+    <div id="cronometro">⏱️ Tiempo: <span id="tiempo">0</span>s</div>
+    <div id="intro">
+        <h2>Aventura en el Antiguo Egipto</h2>
+        <p>Explora civilizaciones antiguas recolectando <strong>experiencias</strong> y <strong>recuerdos</strong> valiosos. Este es el Nivel 1: Egipto. ¡Atrapa los artefactos y prepárate para tu próxima era!</p>
+        <h3>¿Cómo jugar?</h3>
+        <ul style="text-align: left;">
+            <li>➡️ / ⬅️ para moverte</li>
+            <li>⬆️ para saltar</li>
+            <li>Shift para correr</li>
+        </ul>
+        <h3>Objetos</h3>
+        <ul style="text-align: left;">
+            <li>Papiro = 10 pts</li>
+            <li>Ank = 20 pts</li>
+            <li>Escarabajo = 30 pts</li>
+        </ul>
+        <button onclick="iniciarJuego()">Comenzar aventura</button>
+    </div>
+
     <div id="game-container"></div>
     <div id="puntos">Puntos: <span id="puntaje">0</span></div>
     

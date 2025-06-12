@@ -12,9 +12,24 @@ crearEscenario() {
     this.personaje = new Personaje();
     this.container.appendChild(this.personaje.element);
     
+    for (let i = 0; i < 5; i++) {
+        const moneda = new Moneda("papyrus"); 
+    this.monedas.push(moneda);
+    this.container.appendChild(moneda.element);
+    }
+
+    //Escarabajo aparece luego 7 sg
+    setTimeout(() => {
+    const scarab = new Moneda("scarab"); // Podés crear MonedaScarab
+    this.monedas.push(scarab);
+    this.container.appendChild(scarab.element);
+    }, 7000);
+
+
     const objetos = ["papyrus", "ankh", "scarab", "papyrus", "papyrus", "ankh", "scarab"];
-    objetos.forEach(tipo => {
-        const objeto = new Moneda(tipo);
+        objetos.forEach(tipo => {
+    
+    const objeto = new Moneda(tipo);
         this.monedas.push(objeto);
         this.container.appendChild(objeto.element);
     });
@@ -236,6 +251,14 @@ class Moneda {
     
     }
 
-
+function iniciarJuego() {
+    document.getElementById("intro").style.display = "none";
+}
 
 const juego = new Game(); 
+
+let segundos = 0;
+setInterval(() => {
+    segundos++;
+    document.getElementById("tiempo").textContent = segundos;
+}, 1000);

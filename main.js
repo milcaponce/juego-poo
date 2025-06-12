@@ -35,7 +35,7 @@ agregarEventos() {
     this.checkColisiones();
 }
 checkColisiones() {
-    setInterval(() => {
+    this.intervaloColisiones = setInterval(() => {
         this.monedas.forEach((moneda, index) => {
             if  (this.personaje.colisionaCon(moneda)) {
                 this.container.removeChild(moneda.element);
@@ -45,13 +45,15 @@ checkColisiones() {
         });
     },100);
 }
+
 actualizarPuntiacion(puntos) {
     this.puntuacion += puntos;
     this.puntosElement.textContent = this.puntuacion;
     
-    if (this.puntuacion >= 100 {
+    if (this.puntuacion >= 100) {
     clearInterval(this.intervaloColisiones); // detener colisiones
     document.getElementById("nivel-superado").classList.add("mostrar");       
+}
 }
 
 generarMonedasExtra() {
@@ -266,9 +268,10 @@ function avanzarIntro() {
     pasoIntro++;
 
     if (pasoIntro === 1) {
-    mostrarPasoIntro();
+        mostrarPasoIntro();
     } else if (pasoIntro === 2) {
-    document.getElementById("intro").style.display = "none";
+        document.getElementById("intro").style.display = "none";
+        iniciarJuego(); //  inicia el cronómetro
     }
 }
 
@@ -280,10 +283,6 @@ document.addEventListener("keydown", avanzarIntro);
 document.addEventListener("click", avanzarIntro);
 
 
-function iniciarJuego() {
-    avanzarIntro();
-}
-
 const juego = new Game(); 
 
 //Cronometro
@@ -291,10 +290,13 @@ let segundos = 0;
 let intervaloTiempo;
 
 function iniciarJuego() {
-    document.getElementById("intro").style.display = "none";
     segundos = 0;
     intervaloTiempo = setInterval(() => {
     segundos++;
     document.getElementById("tiempo").textContent = segundos;
     }, 1000);
+}
+
+function siguienteNivel() {
+    alert("🎉 ¡Próximamente desbloquearás nuevos mundos!");
 }

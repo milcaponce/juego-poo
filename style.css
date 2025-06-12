@@ -160,3 +160,20 @@ body {
     0% { transform: translateX(0px); }
     100% { transform: translateX(50px); }
 }
+
+.mensaje-final {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000000cc;
+    color: white;
+    padding: 40px;
+    border-radius: 20px;
+    z-index: 999;
+    text-align: center;
+}
+.mensaje-final.mostrar {
+    display: block;
+}

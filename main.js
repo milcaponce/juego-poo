@@ -11,11 +11,13 @@ constructor(){
 crearEscenario() {
     this.personaje = new Personaje();
     this.container.appendChild(this.personaje.element);
-    for (let i = 0; i < 5; i++) {
-        const moneda = new Moneda();
-        this.monedas.push(moneda);
-        this.container.appendChild(moneda.element);
-    }
+    
+    const objetos = ["papyrus", "ankh", "scarab", "papyrus", "papyrus", "ankh", "scarab"];
+    objetos.forEach(tipo => {
+        const objeto = new Moneda(tipo);
+        this.monedas.push(objeto);
+        this.container.appendChild(objeto.element);
+    });
 }
 agregarEventos() {
     window.addEventListener("keydown", (e) => this.personaje.mover(e));
@@ -27,7 +29,7 @@ checkColisiones() {
             if  (this.personaje.colisionaCon(moneda)) {
                 this.container.removeChild(moneda.element);
                 this.monedas.splice(index, 1);
-                this.actualizarPuntiacion(10);
+                this.actualizarPuntiacion(moneda.puntaje);
                 }
         });
     },100);
@@ -198,21 +200,42 @@ colisionaCon(objeto) {
 
 
 class Moneda {
-    constructor() {
+    constructor(tipo = "papyrus") {
+        this.tipo = tipo;
+        this.puntaje = this.definirPuntaje();
         this.x = Math.random() * 700 + 50;
         this.y = Math.random() * 250 + 50;
         this.width = 30;
         this.height = 30;
         this.element = document.createElement("div");
-        this.element.classList.add("moneda");
+        this.element.classList.add("moneda", tipo);
         this.actualizarPosicion();
+
+        if (tipo === "scarab") {
+            this.element.classList.add("animado");
+            setTimeout(() => {
+                if (this.element.parentElement) {
+                    this.element.remove(); // se borra después de 5s
+                }
+            }, 5000);
+        }
     }
 
+    definirPuntaje() {
+        switch (this.tipo) {
+        case "ankh": return 20;
+        case "scarab": return 30;
+        default: return 10;
+        }
+    }
     actualizarPosicion(puntos) {
         this.element.style.left = `${this.x}px`;
         this.element.style.top = `${this.y}px`;
+
+    }
+    
     }
 
-}
+
 
 const juego = new Game(); 

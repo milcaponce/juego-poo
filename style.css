@@ -60,7 +60,29 @@ body {
     position: absolute;
     width: 30px;
     height: 30px;
-    background-color: gold;
-    border-radius: 50%;
-    box-shadow: 0 0 10px 2px rgba(255, 223, 0, 0.8);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Estilos por tipo */
+.papyrus {
+    background-image: url("img/LVL-1-Egipto/Objetos/papyrus.png");
+}
+
+.ankh {
+    background-image: url("img/LVL-1-Egipto/Objetos/ankh.png");
+}
+
+.scarab {
+    background-image: url("img/LVL-1-Egipto/Objetos/scarab.png");
+}
+
+/* Animación de escape para escarabajo */
+.scarab.animado {
+    animation: moverScarab 5s linear infinite;
+}
+
+@keyframes moverScarab {
+    0% { transform: translateX(0px); }
+    100% { transform: translateX(50px); }
 }

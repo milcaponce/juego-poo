@@ -21,6 +21,41 @@ body {
     text-align: center;
 }
 
+#intro button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #f0c95a;
+    color: #111;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+} 
+
+#intro button:hover {
+    background-color: #e1b743;
+}
+
+#intro img {
+    width: 24px;
+    height: auto;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+.intro-section {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: rgb(255,255,255,0.1);
+    border-radius: 12px;
+}
+
+.intro-section h2,
+.intro-section h3 {
+    color: #ffe680;
+}
+
 #game-container {
     position: relative;
     width: 1000px;

@@ -72,6 +72,16 @@ body {
     background-color: #e1b743;
 }
 
+#intro h2, #intro h3, #nivel-superado h2 {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+#intro button:hover,
+#nivel-superado button:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
+
 #intro img {
     width: 24px;
     height: auto;
@@ -142,6 +152,7 @@ body {
     image-rendering: pixelated;
     background-position: 0 0;
     background-size: cover;
+    transition: left 0.1s ease-out, top 0.1s ease-out;
 }
 /* Animación Idle */
 @keyframes animarIdle {

@@ -2,16 +2,24 @@ const musicaFondo = new Audio("sound/music-egypt.wav");
 musicaFondo.loop = true;
 musicaFondo.volume = 0.5;
 
+const sonidoSalto = new Audio("sound/jump.wav");
+const sonidoMoneda = new Audio("sound/coin.wav");
+const sonidoWin = new Audio("sound/win.wav");
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("intro").style.display = "block";
+});
 class Game {
 constructor(){
     this.container = document.getElementById("game-container");
     this.personaje = null;
     this.monedas = [];
     this.puntuacion = 0;
+    this.puntosElement = document.getElementById("puntaje");
     this.crearEscenario();
     this.agregarEventos();
-    this.puntosElement = document.getElementById("puntaje");
     this.nivelCompletado = false;
+    this.scarabInterval = setInterval(() => this.generarScarab(),10000);
 }
 crearEscenario() {
     this.personaje = new Personaje();
@@ -25,19 +33,13 @@ crearEscenario() {
         this.container.appendChild(objeto.element);
     });
 
-    
-    //Escarabajo aparece luego 7 sg
-    setTimeout(() => {
-    const scarab = new Moneda("scarab"); 
-    this.monedas.push(scarab);
-    this.container.appendChild(scarab.element);
-    }, 7000);
 }
 
 agregarEventos() {
-    window.addEventListener("keydown", (e) => this.personaje.mover(e));
+    window.addEventListener("keydown", e => this.personaje.mover(e));
     this.checkColisiones();
 }
+
 checkColisiones() {
     this.intervaloColisiones = setInterval(() => {
         this.monedas.forEach((moneda, index) => {
@@ -58,21 +60,27 @@ actualizarPuntiacion(puntos) {
     if (this.puntuacion >= 100) {
     clearInterval(this.intervaloColisiones); // detener colisiones
     document.getElementById("nivel-superado").classList.add("mostrar");       
-}; sonidoWin.play();
+    sonidoWin.play();
+}
 }
 
-generarMonedasExtra() {
-    for (let i = 0; i <3; i++) {
-        const nueva = new Moneda();
-        this.monedas.push(nueva);
-        this.container.appendChild(nueva.element);
+generarScarab() {
+    const scarab = new Moneda("scarab");
+    this.monedas.push(scarab);
+    this.container.appendChild(scarab.element);
+    setTimeout(() => {
+    if (scarab.element.parentElement) {
+        scarab.element.remove();
     }
-}
+    }, 5000);
 }
 
-const sonidoSalto = new Audio("sound/jump.wav");
-const sonidoMoneda = new Audio("sound/coin.wav");
-const sonidoWin = new Audio("sound/win.wav");
+limpiarIntervalos() {
+        clearInterval(this.scarabInterval);
+        clearInterval(this.intervaloColisiones);
+    }
+
+}
 
 class Personaje {
     constructor() {
@@ -82,38 +90,38 @@ class Personaje {
         this.height = 128;
         this.velocidad = 10;
         this.saltando = false;
-        this.estado = "idle"; //quieto
+        this.estado = "idle"; 
         this.direccion = "derecha";
-        this.frameActual = 0;
-        
-        
         this.element = document.createElement("div");
         this.element.classList.add("personaje");
         this.actualizarPosicion();
         this.actualizarAnimacion();
+        
+        this.contenedorAncho = 1000;
+        this.margen = 0;
     }
 
-    mover(evento) {
+    mover(e) {
         if (this.saltando) return; 
-
         const contenedorAncho = 1000;
         const margen = 0;
+        
 
-        if (evento.key === "ArrowRight") {
+        if (e.key === "ArrowRight") {
             if (this.x + this.width + this.velocidad <= contenedorAncho - margen) {
                 this.x += this.velocidad;
             }
             this.direccion = "derecha";
-            this.estado = evento.shiftKey ? "corriendo" : "caminando";
+            this.estado = e.shiftKey ? "corriendo" : "caminando";
 
-        } else if (evento.key === "ArrowLeft") {
+        } else if (e.key === "ArrowLeft") {
             if (this.x - this.velocidad >= 0 + margen) {
                 this.x -= this.velocidad;
             }
             this.direccion = "izquierda";
-            this.estado = evento.shiftKey ? "corriendo" : "caminando";
+            this.estado = e.shiftKey ? "corriendo" : "caminando";
 
-        }  else if (evento.key === "ArrowUp") {
+        }  else if (e.key === "ArrowUp") {
             this.saltar();
             return; //Para que no vuelva a "idle"
         }
@@ -298,11 +306,19 @@ let intervaloTiempo;
 
 function iniciarJuego() {
     segundos = 0;
+    document.getElementById("tiempo").textContent = segundos;
+    document.getElementById("puntaje").textContent = 0;
+
     intervaloTiempo = setInterval(() => {
     segundos++;
     document.getElementById("tiempo").textContent = segundos;
     }, 1000);
+
     musicaFondo.play();
+    document.getElementById("game-container").style.display = "block";
+    document.getElementById("intro").style.display = "none";
+
+    juego = new Game();
 }
 
 function siguienteNivel() {

@@ -1,26 +1,207 @@
+/*Estilos globales*/ 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif sans-serif;
     background-color: #c9b196;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
     flex-direction: column;
-    padding: 10px;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+h1 {
+    margin-bottom: 10px;
 }
 
-#intro {
+/*Cronómetro - puntos*/
+#hud {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+/*Contenedor principal*/
+#game-container {
+    position: relative;
+    width: 90vw;
+    max-width: 1000px;
+    aspect-ratio: 2 / 1; /* Ideal proporción para fondo horizontal */
+    border: 10px solid #d9c0a3;
+    background: url("img/LVL-1-Egipto/fondo-desierto-dia.png") no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
+    border-radius: 30px;
+    margin-top: 10px;
+}
+
+/*Intro*/
+#intro, #nivel-superado {
     position: absolute;
-    background: rgb(0,0,0,0.75);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
     color: #fff;
-    padding: 40px;
-    border-radius: 16px;
-    max-width: 600px;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 90%;
+    width: 500px;
     z-index: 999;
     text-align: center;
+    box-shadow: 0 0 25px #0008;
+    animation: fadeIn 1s ease-out;
+    display: none;
+    }
+#intro {
+    display: block;
 }
+
+#nivel-superado {
+    display: none;
+}
+
+
+#intro.activo, #nivel-superado.mostrar {
+    display: block;
+}
+
+#intro button, #nivel-superado button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #f0c95a;
+    color: #111;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#intro button:hover,
+#nivel-superado button:hover {
+    background-color: #e1b743;
+    transform: scale(1.05);
+}
+
+.intro-section {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: none;
+}
+
+.intro-section.activa {
+    display: block;
+}
+
+#intro img {
+    width: 24px;
+    height: auto;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+#intro h2,
+#intro h3, 
+#nivel-superado h2 {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+
+
+.intro-section h2,
+.intro-section h3 {
+    color: #ffe680;
+}
+
+#instrucciones img {
+    filter: drop-shadow(1px 1px 2px rgb(151, 159, 6));
+    width: 32px;
+    height: auto;
+    margin: 0 4px;
+}
+
+
+/*Personaje*/
+.personaje {
+    position: absolute;
+    width: 128px;
+    height: 128px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    background-position: 0 0;
+    background-size: cover;
+    transition: left 0.1s ease-out, top 0.1s ease-out;
+}
+
+/* Animaciones del personaje */
+@keyframes animarIdle {
+    from { background-position: 0; }
+    to   { background-position: -640px; }
+}
+
+@keyframes animarJump {
+    from { background-position: 0; }
+    to   { background-position: -869px; }
+}
+
+@keyframes animarRun {
+    from { background-position: 0; }
+    to   { background-position: -927px; }
+}
+
+@keyframes animarWalk {
+    from { background-position: 0; }
+    to   { background-position: -927px; }
+}
+
+/*Objetos-monedas*/
+.moneda {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.papyrus {
+    background-image: url("img/LVL-1-Egipto/Objetos/papyrus.png");
+}
+
+.ankh {
+    background-image: url("img/LVL-1-Egipto/Objetos/ankh.png");
+}
+
+.scarab {
+    background-image: url("img/LVL-1-Egipto/Objetos/scarab.png");
+}
+
+.scarab.animado {
+    animation: moverScarab 5s linear infinite;
+}
+
+@keyframes moverScarab {
+    0% { transform: translateX(0px); }
+    100% { transform: translateX(50px); }
+}
+
+
+
+
+/*Entrada suave*/
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
 
 /*Resposive*/
 @media (max-width: 600px) {
@@ -51,177 +232,20 @@ body {
     animation: fadeIn 1s ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
 
-#intro button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: #f0c95a;
-    color: #111;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-} 
 
-#intro button:hover {
-    background-color: #e1b743;
-}
 
-#intro h2, #intro h3, #nivel-superado h2 {
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-}
 
-#intro button:hover,
-#nivel-superado button:hover {
-    transform: scale(1.05);
-    transition: transform 0.2s ease;
-}
 
-#intro img {
-    width: 24px;
-    height: auto;
-    vertical-align: middle;
-    margin: 0 5px;
-}
 
-.intro-section {
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    background-color: rgb(255,255,255,0.1);
-    border-radius: 12px;
-    display: none;
-}
 
-.intro-section.activa {
-    display: block;
-}
 
-.intro-section h2,
-.intro-section h3 {
-    color: #ffe680;
-}
 
-#instrucciones img {
-    filter: drop-shadow(1px 1px 2px rgb(151, 159, 6));
-    width: 32px;
-    height: auto;
-    margin: 0 4px;
-}
 
-#nivel-superado {
-    position: absolute;
-    background: rgb(0,0,0,0.85);
-    color: #fff;
-    padding: 40px;
-    border-radius: 16px;
-    text-align: center;
-    max-width: 600px;
-    z-index: 999;
-    display: none;
-}
 
-#nivel-superado.mostrar {
-    display: block;
-}
 
-#game-container {
-    position: relative;
-    width: 90vw;
-    max-width: 1000px;
-    height: 50vh;
-    min-height: 400px;
-    margin: 20px auto;
-    border: 10px solid #d9c0a3;
-    background: url("img/LVL-1-Egipto/fondo-desierto-dia.png") no-repeat center center;
-    background-size: cover;
-    overflow: hidden;
-    border-radius: 30px;
-}
 
-.personaje {
-    position: absolute;
-    width: 128px;
-    height: 128px;
-    overflow: hidden;
-    background-repeat: no-repeat;
-    image-rendering: pixelated;
-    background-position: 0 0;
-    background-size: cover;
-    transition: left 0.1s ease-out, top 0.1s ease-out;
-}
-/* Animación Idle */
-@keyframes animarIdle {
-    from { background-position: 0; }
-    to   { background-position: -640px; }
-}
 
-/* Animación jump */
-@keyframes animarJump {
-    from { background-position: 0; }
-    to   { background-position: -869px; }
-}
 
-/*Animación run */
-@keyframes animarRun {
-    from { background-position: 0; }
-    to   { background-position: -927px; }
-}
 
-/* Animación walk */
-@keyframes animarWalk {
-    from { background-position: 0; }
-    to   { background-position: -927px; }
-}
 
-.moneda {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-/* Estilos por tipo */
-.papyrus {
-    background-image: url("img/LVL-1-Egipto/Objetos/papyrus.png");
-}
-
-.ankh {
-    background-image: url("img/LVL-1-Egipto/Objetos/ankh.png");
-}
-
-.scarab {
-    background-image: url("img/LVL-1-Egipto/Objetos/scarab.png");
-}
-
-/* Animación de escape para escarabajo */
-.scarab.animado {
-    animation: moverScarab 5s linear infinite;
-}
-
-@keyframes moverScarab {
-    0% { transform: translateX(0px); }
-    100% { transform: translateX(50px); }
-}
-
-.mensaje-final {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #000000cc;
-    color: white;
-    padding: 40px;
-    border-radius: 20px;
-    z-index: 999;
-    text-align: center;
-}
-.mensaje-final.mostrar {
-    display: block;
-}

@@ -6,8 +6,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: auto;
     flex-direction: column;
+    padding: 10px;
 }
 
 #intro {
@@ -19,6 +20,40 @@ body {
     max-width: 600px;
     z-index: 999;
     text-align: center;
+}
+
+/*Resposive*/
+@media (max-width: 600px) {
+    #intro, #nivel-superado {
+    width: 90%;
+    padding: 20px;
+    font-size: 14px;
+    }
+
+    #intro button {
+    font-size: 16px;
+    padding: 8px 16px;
+    }
+
+    .personaje {
+    width: 64px;
+    height: 64px;
+    }
+
+    .moneda {
+    width: 20px;
+    height: 20px;
+    }
+}
+
+#intro,
+#nivel-superado {
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 #intro button {
@@ -86,8 +121,10 @@ body {
 
 #game-container {
     position: relative;
-    width: 1000px;
-    height: 500px;
+    width: 90vw;
+    max-width: 1000px;
+    height: 50vh;
+    min-height: 400px;
     margin: 20px auto;
     border: 10px solid #d9c0a3;
     background: url("img/LVL-1-Egipto/fondo-desierto-dia.png") no-repeat center center;

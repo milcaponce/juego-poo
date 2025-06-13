@@ -1,5 +1,5 @@
 const musicaFondo = new Audio("sound/music-egypt.wav");
-musicaFondo.loo = true;
+musicaFondo.loop = true;
 musicaFondo.volume = 0.5;
 
 class Game {
@@ -42,13 +42,13 @@ checkColisiones() {
     this.intervaloColisiones = setInterval(() => {
         this.monedas.forEach((moneda, index) => {
             if  (this.personaje.colisionaCon(moneda)) {
+                sonidoMoneda.play();
                 this.container.removeChild(moneda.element);
                 this.monedas.splice(index, 1);
                 this.actualizarPuntiacion(moneda.puntaje);
                 }
         });
     },100);
-    sonidoMoneda.play();
 }
 
 actualizarPuntiacion(puntos) {

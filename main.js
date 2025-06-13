@@ -1,3 +1,7 @@
+const musicaFondo = new Audio("sound/music-egypt.wav");
+musicaFondo.loo = true;
+musicaFondo.volume = 0.5;
+
 class Game {
 constructor(){
     this.container = document.getElementById("game-container");
@@ -44,6 +48,7 @@ checkColisiones() {
                 }
         });
     },100);
+    sonidoMoneda.play();
 }
 
 actualizarPuntiacion(puntos) {
@@ -53,7 +58,7 @@ actualizarPuntiacion(puntos) {
     if (this.puntuacion >= 100) {
     clearInterval(this.intervaloColisiones); // detener colisiones
     document.getElementById("nivel-superado").classList.add("mostrar");       
-}
+}; sonidoWin.play();
 }
 
 generarMonedasExtra() {
@@ -65,6 +70,9 @@ generarMonedasExtra() {
 }
 }
 
+const sonidoSalto = new Audio("sound/jump.wav");
+const sonidoMoneda = new Audio("sound/coin.wav");
+const sonidoWin = new Audio("sound/win.wav");
 
 class Personaje {
     constructor() {
@@ -141,6 +149,7 @@ class Personaje {
 
             this.actualizarPosicion();
         }, 20);
+        sonidoSalto.play();
     }
 
     caer() {
@@ -200,7 +209,7 @@ class Personaje {
     }
     
 
-colisionaCon(objeto) {
+    colisionaCon(objeto) {
         return (
             this.x < objeto.x + objeto.width &&
             this.x + this.width > objeto.x &&
@@ -244,9 +253,7 @@ class Moneda {
     actualizarPosicion() {
         this.element.style.left = `${this.x}px`;
         this.element.style.top = `${this.y}px`;
-
     }
-    
     }
 
 let pasoIntro = 0;
@@ -295,6 +302,7 @@ function iniciarJuego() {
     segundos++;
     document.getElementById("tiempo").textContent = segundos;
     }, 1000);
+    musicaFondo.play();
 }
 
 function siguienteNivel() {

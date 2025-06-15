@@ -2,6 +2,7 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif sans-serif;
+    text-align: center;
     background-color: #c9b196;
     min-height: 100vh;
     display: flex;
@@ -218,6 +219,16 @@ h1 {
     padding: 8px 16px;
     }
 
+    #hud {
+    flex-direction: column;
+    gap: 10px;
+    }
+
+    #game-container {
+    aspect-ratio: auto;
+    height: 300px;
+    }
+    
     .personaje {
     width: 64px;
     height: 64px;

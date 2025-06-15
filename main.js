@@ -7,7 +7,7 @@ const sonidoMoneda = new Audio("sound/coin.wav");
 const sonidoWin = new Audio("sound/win.wav");
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("intro").style.display = "activo";
+    document.getElementById("intro").classList.add ("activo");
 });
 class Game {
 constructor(){
@@ -318,7 +318,6 @@ function iniciarJuego() {
     document.getElementById("game-container").style.display = "block";
     document.getElementById("intro").style.display = "none";
 
-    juego = new Game();
 }
 
 function siguienteNivel() {

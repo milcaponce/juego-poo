@@ -90,7 +90,8 @@ limpiarIntervalos() {
 class Personaje {
     constructor() {
         this.x = 50;
-        const containerHeight = this.container?.offsetHeight || 300;
+        const containerHeight = 500;
+        console.log(containerHeight)
         this.y = containerHeight - this.height;
         this.width = 128;
         this.height = 128;
@@ -153,6 +154,8 @@ class Personaje {
         this.actualizarAnimacion(); //Para volver a "idle" al aterrizar
 
         let alturaMaxima = this.y - 150;
+
+        this.y = 300 // forzar a que salte 300 de alto
 
         const salto = setInterval(() => {
             if (this.y > alturaMaxima) {

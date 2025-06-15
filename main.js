@@ -149,6 +149,7 @@ class Personaje {
 
         this.saltando = true;
         this.estado = "saltando";
+        
         this.actualizarAnimacion(); //Para volver a "idle" al aterrizar
 
         let alturaMaxima = this.y - 150;
@@ -309,6 +310,11 @@ const juego = new Game();
 //Cronometro
 let segundos = 25;
 let intervaloTiempo;
+
+//Recoger el botón de empezar el juego
+const botonJuego = document.getElementById('iniciar-juego')
+// cuando clicko en el botón que acabo de guardar, hago la función inicairJuego
+botonJuego.addEventListener('click', () => iniciarJuego())
 
 function iniciarJuego() {
     segundos = 25;

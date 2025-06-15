@@ -1,9 +1,7 @@
-/*Estilos globales*/ 
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif sans-serif;
-    text-align: center;
-    background-color: #c9b196;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #c4a276 0%, #eedec0  100%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -12,29 +10,31 @@ body {
     box-sizing: border-box;
     position: relative;
 }
+
 h1 {
-    margin-bottom: 10px;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 35px;
+    margin-bottom: 20px;
     text-align: center;
     width: 100%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/*Cronómetro - puntos*/
 #hud {
     display: flex;
     gap: 40px;
     justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
     color: #222;
     margin-bottom: 10px;
 }
 
-/*Contenedor principal*/
 #game-container {
     position: relative;
     width: 90vw;
     max-width: 1000px;
-    aspect-ratio: 2 / 1; /* Ideal proporción para fondo horizontal */
+    aspect-ratio: 2 / 1;
     border: 10px solid #d9c0a3;
     background: url("img/LVL-1-Egipto/fondo-desierto-dia.png") no-repeat center center;
     background-size: cover;
@@ -43,7 +43,6 @@ h1 {
     margin-top: 10px;
 }
 
-/*Intro*/
 #intro, #nivel-superado {
     position: absolute;
     top: 50%;
@@ -58,21 +57,22 @@ h1 {
     z-index: 999;
     text-align: center;
     box-shadow: 0 0 25px #0008;
-    animation: fadeIn 1s ease-out;
-    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    animation: fadeIn 0.6s ease-out forwards;
     }
-#intro {
-    display: block;
-}
 
 #nivel-superado {
     display: none;
+    }
+
+#intro.visible,
+#nivel-superado.mostrar {
+    opacity: 1;
+    pointer-events: all;
 }
 
-
-#intro.activo, #nivel-superado.mostrar {
-    display: block;
-}
 
 #intro button, #nivel-superado button {
     margin-top: 20px;
@@ -83,11 +83,10 @@ h1 {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-#intro button:hover,
-#nivel-superado button:hover {
+#intro button:hover, #nivel-superado button:hover {
     background-color: #e1b743;
     transform: scale(1.05);
 }
@@ -111,16 +110,11 @@ h1 {
     margin: 0 5px;
 }
 
-#intro h2,
-#intro h3, 
-#nivel-superado h2 {
+#intro h2, #intro h3, #nivel-superado h2 {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
 }
 
-
-
-.intro-section h2,
-.intro-section h3 {
+.intro-section h2, .intro-section h3 {
     color: #ffe680;
 }
 
@@ -131,8 +125,6 @@ h1 {
     margin: 0 4px;
 }
 
-
-/*Personaje*/
 .personaje {
     position: absolute;
     width: 128px;
@@ -143,9 +135,9 @@ h1 {
     background-position: 0 0;
     background-size: cover;
     transition: left 0.1s ease-out, top 0.1s ease-out;
+    bottom: 0;
 }
 
-/* Animaciones del personaje */
 @keyframes animarIdle {
     from { background-position: 0; }
     to   { background-position: -640px; }
@@ -166,7 +158,6 @@ h1 {
     to   { background-position: -927px; }
 }
 
-/*Objetos-monedas*/
 .moneda {
     position: absolute;
     width: 30px;
@@ -196,64 +187,43 @@ h1 {
     100% { transform: translateX(50px); }
 }
 
-
-
-
-/*Entrada suave*/
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
 }
 
-
-/*Resposive*/
 @media (max-width: 600px) {
     #intro, #nivel-superado {
-    width: 90%;
-    padding: 20px;
-    font-size: 14px;
+        width: 90%;
+        padding: 20px;
+        font-size: 14px;
     }
 
     #intro button {
-    font-size: 16px;
-    padding: 8px 16px;
+        font-size: 16px;
+        padding: 8px 16px;
     }
 
     #hud {
-    flex-direction: column;
-    gap: 10px;
+        flex-direction: column;
+        gap: 10px;
     }
 
     #game-container {
-    aspect-ratio: auto;
-    height: 300px;
+        aspect-ratio: auto;
+        height: 300px;
     }
-    
+
     .personaje {
-    width: 64px;
-    height: 64px;
+        width: 64px;
+        height: 64px;
     }
 
     .moneda {
-    width: 20px;
-    height: 20px;
+        width: 20px;
+        height: 20px;
     }
 }
-
-#intro,
-#nivel-superado {
-    animation: fadeIn 1s ease-out;
-}
-
-
-
-
-
-
-
-
-
-
 
 
 

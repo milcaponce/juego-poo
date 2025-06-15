@@ -7,7 +7,12 @@ const sonidoMoneda = new Audio("sound/coin.wav");
 const sonidoWin = new Audio("sound/win.wav");
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("intro").classList.add ("activo");
+    const intro = document.getElementById("intro");
+    if (intro) {
+        intro.classList.add("visible");
+    } else {
+        console.error("No se encontró el #intro en el DOM.");
+    }
 });
 class Game {
 constructor(){
@@ -85,7 +90,8 @@ limpiarIntervalos() {
 class Personaje {
     constructor() {
         this.x = 50;
-        this.y = 300;
+        const containerHeight = this.container?.offsetHeight || 300;
+        this.y = containerHeight - this.height;
         this.width = 128;
         this.height = 128;
         this.velocidad = 10;
@@ -145,7 +151,7 @@ class Personaje {
         this.estado = "saltando";
         this.actualizarAnimacion(); //Para volver a "idle" al aterrizar
 
-        let alturaMaxima = this.y - 300;
+        let alturaMaxima = this.y - 150;
 
         const salto = setInterval(() => {
             if (this.y > alturaMaxima) {
@@ -301,18 +307,24 @@ document.addEventListener("click", avanzarIntro);
 const juego = new Game(); 
 
 //Cronometro
-let segundos = 0;
+let segundos = 25;
 let intervaloTiempo;
 
 function iniciarJuego() {
-    segundos = 0;
+    segundos = 25;
     document.getElementById("tiempo").textContent = segundos;
     document.getElementById("puntaje").textContent = 0;
 
     intervaloTiempo = setInterval(() => {
-    segundos++;
-    document.getElementById("tiempo").textContent = segundos;
-    }, 1000);
+    if (segundos > 0) {
+        segundos--;
+    
+        document.getElementById("tiempo").textContent = segundos;
+        } else {
+            clearInterval(intervaloTiempo);
+            alert("Tiempo agotado!");
+            }
+        }, 1000);
 
     musicaFondo.play();
     document.getElementById("game-container").style.display = "block";

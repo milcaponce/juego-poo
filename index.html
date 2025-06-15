@@ -5,42 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego-Poo</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 
 <body>
-<div>
     <h1>Viajando por el mundo</h1>
+
     <div id="hud">
-    <div id="cronometro">⏱️ Tiempo: <span id="tiempo">0</span>s</div>
-    <div id="puntos">🎯 Puntos: <span id="puntaje">0</span></div>
-</div>
+        <div id="cronometro">⏱️ Tiempo: <span id="tiempo">0</span>s</div>
+        <div id="puntos">🎯 Puntos: <span id="puntaje">0</span></div>
+    </div>
 
-<div id="game-container">
-    <div id="intro">
-        <div class="intro-section" id="historia">
-            <h2>Aventura en el Antiguo Egipto</h2>
-            <p>Explora civilizaciones antiguas recolectando <strong>experiencias</strong> y <strong>recuerdos</strong> valiosos. Este es el Nivel 1: Egipto. ¡Atrapa los artefactos y prepárate para tu próxima era!</p>
+    <div id="game-container">
+        <div id="intro">
+            <div class="intro-section" id="historia">
+                <h2>Aventura en el Antiguo Egipto</h2>
+                <p>Explora civilizaciones antiguas recolectando <strong>experiencias</strong> y <strong>recuerdos</strong> valiosos. Este es el Nivel 1: Egipto. ¡Atrapa los artefactos y prepárate para tu próxima era!</p>
+            </div>
+
+            <div class="intro-section" id="instrucciones">
+                <h3>¿Cómo jugar?</h3>
+                <ul style="text-align: left;">
+                    <li><img src="img/LVL-1-Egipto/Iconos/arrow-left.png" alt="Flecha-izquierda"><img src="img/LVL-1-Egipto/Iconos/arrow-right.png" alt="Flecha-derecha"> para moverte</li>
+                    <li><img src="img/LVL-1-Egipto/Iconos/arrow-up.png" alt="Flecha-arriba"> para saltar</li>
+                    <li><img src="img/LVL-1-Egipto/Iconos/shift.png" alt="shift"> para correr</li>
+                </ul>
+
+                <h3>Objetos</h3>
+                <ul style="text-align: left;">
+                    <li><img src="img/LVL-1-Egipto/Objetos/papyrus.png" alt="Papiro"> = 10 pts</li>
+                    <li><img src="img/LVL-1-Egipto/Objetos/ankh.png" alt="Ankh"> = 20 pts</li>
+                    <li><img src="img/LVL-1-Egipto/Objetos/scarab.png" alt=""> = 30 pts</li>
+                </ul>  
+            </div>
+
+            <button onclick="iniciarJuego()">Comenzar aventura</button>
         </div>
-
-        <div class="intro-section" id="instrucciones">
-            <h3>¿Cómo jugar?</h3>
-        <ul style="text-align: left;">
-            <li><img src="img/LVL-1-Egipto/Iconos/arrow-left.png" alt="Flecha-izquierda"><img src="img/LVL-1-Egipto/Iconos/arrow-right.png" alt="Flecha-derecha"> para moverte</li>
-            <li><img src="img/LVL-1-Egipto/Iconos/arrow-up.png" alt="Flecha-arriba"> para saltar</li>
-            <li><img src="img/LVL-1-Egipto/Iconos/shift.png" alt="shift"> para correr</li>
-        </ul>
-
-        <h3>Objetos</h3>
-        <ul style="text-align: left;">
-            <li><img src="img/LVL-1-Egipto/Objetos/papyrus.png" alt="Papiro"> = 10 pts</li>
-            <li><img src="img/LVL-1-Egipto/Objetos/ankh.png" alt="Ankh"> = 20 pts</li>
-            <li><img src="img/LVL-1-Egipto/Objetos/scarab.png" alt=""> = 30 pts</li>
-        </ul>        
     </div>
-
-    <button onclick="iniciarJuego()">Comenzar aventura</button>
-    </div>
-</div>
 
     <div id="nivel-superado">
         <h2>¡Nivel superado!</h2>

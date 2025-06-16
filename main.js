@@ -26,18 +26,24 @@ constructor(){
     this.nivelCompletado = false;
     this.scarabInterval = setInterval(() => this.generarScarab(),10000);
 }
+
 crearEscenario() {
-    this.personaje = new Personaje();
-    this.container.appendChild(this.personaje.element);
-    
-    const objetos = ["papyrus", "ankh", "scarab", "papyrus", "papyrus", "ankh", "scarab"];
+    if (this.container) {
+        const containerHeight = this.container.offsetHeight;
+        console.log("Altura del contenedor:", containerHeight);
+        
+        this.personaje = new Personaje(containerHeight);
+        this.container.appendChild(this.personaje.element);
+
+        const objetos = ["papyrus", "ankh", "scarab", "papyrus", "papyrus", "ankh", "scarab"];
         objetos.forEach(tipo => {
-    
-    const objeto = new Moneda(tipo);
+        const objeto = new Moneda(tipo);
         this.monedas.push(objeto);
         this.container.appendChild(objeto.element);
-    });
-
+        });
+    } else {
+        console.error("No se encontró el #game-container en el DOM");
+        }
 }
 
 agregarEventos() {
@@ -66,7 +72,7 @@ actualizarPuntiacion(puntos) {
     clearInterval(this.intervaloColisiones); // detener colisiones
     document.getElementById("nivel-superado").classList.add("mostrar");       
     sonidoWin.play();
-}
+    }
 }
 
 generarScarab() {
@@ -84,22 +90,24 @@ limpiarIntervalos() {
         clearInterval(this.scarabInterval);
         clearInterval(this.intervaloColisiones);
     }
-
 }
 
 class Personaje {
-    constructor() {
-        this.x = 50;
-        const containerHeight = this.container?.offsetHeight || 300;
-        this.y = containerHeight - this.height;
+    constructor(containerHeight = 500) {
         this.width = 128;
         this.height = 128;
+        this.x = 50;
         this.velocidad = 10;
         this.saltando = false;
         this.estado = "idle"; 
         this.direccion = "derecha";
+        
+        this.ySuelo = containerHeight - this.height - 50;
+        this.y = this.ySuelo;
+
         this.element = document.createElement("div");
         this.element.classList.add("personaje");
+        
         this.actualizarPosicion();
         this.actualizarAnimacion();
         
@@ -151,7 +159,7 @@ class Personaje {
         this.estado = "saltando";
         this.actualizarAnimacion(); //Para volver a "idle" al aterrizar
 
-        let alturaMaxima = this.y - 150;
+        let alturaMaxima = this.y - 220;
 
         const salto = setInterval(() => {
             if (this.y > alturaMaxima) {
@@ -168,8 +176,8 @@ class Personaje {
 
     caer() {
         const gravedad = setInterval(() => {
-            if (this.y < 300) {
-                this.y += 20;
+            if (this.y < this.ySuelo) {
+                this.y += 15;
                 this.actualizarPosicion();
             } else {
                 clearInterval(gravedad);

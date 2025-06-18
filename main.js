@@ -70,7 +70,8 @@ actualizarPuntiacion(puntos) {
     
     if (this.puntuacion >= 100) {
     clearInterval(this.intervaloColisiones); // detener colisiones
-    document.getElementById("nivel-superado").classList.add("mostrar");       
+    
+    const nivelSuperado = document.getElementById("nivel-superado").classList.add("mostrar");       
     sonidoWin.play();
     }
 }
@@ -159,7 +160,7 @@ class Personaje {
         this.estado = "saltando";
         this.actualizarAnimacion(); //Para volver a "idle" al aterrizar
 
-        let alturaMaxima = this.y - 220;
+        let alturaMaxima = this.y - 250;
 
         const salto = setInterval(() => {
             if (this.y > alturaMaxima) {
